@@ -42,7 +42,7 @@ class ApiClient {
         return if (response.status.isSuccess()) {
             page++
             val result: ApiResponse = response.body()
-            //numberTotalofPages = result.total
+           // numberTotalofPages = result.total
             Result.success(result.results)
         } else {
             Result.failure(error("Something went wrong"))

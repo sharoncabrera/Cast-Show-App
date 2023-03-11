@@ -5,9 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.graphics.toArgb
 import com.example.castshow.core.presentation.Navigation
-import com.example.castshow.ui.theme.CastShowTheme
-import com.example.castshow.ui.theme.DarkerGreen
-import com.example.castshow.ui.theme.Green
+import com.example.castshow.ui.theme.*
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
