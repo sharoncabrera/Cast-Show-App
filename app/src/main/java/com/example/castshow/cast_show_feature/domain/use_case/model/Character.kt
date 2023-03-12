@@ -1,8 +1,10 @@
-package com.example.castshow.cast_show_feature.domain.model
+package com.example.castshow.cast_show_feature.domain.use_case.model
+
+import com.example.castshow.core.domain.SelectAndSortableByName
 
 data class Character(
     val id: Int,
-    val name: String,
+    override val name: String,
     val status: String,
     val species: String,
     val type: String,
@@ -10,5 +12,5 @@ data class Character(
     val origin: String,
     val location: String,
     val image: String,
-)
+): SelectAndSortableByName
 

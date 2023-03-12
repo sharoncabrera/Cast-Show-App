@@ -1,8 +1,7 @@
 package com.example.castshow.cast_show_feature.di
-/*
-import com.example.castshow.cast_show_feature.data.repository.CastRepositoryImpl
-import com.example.castshow.cast_show_feature.domain.CastRepository
-import com.example.castshow.core.network.ApiClient
+
+import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
+import com.example.castshow.cast_show_feature.domain.use_case.SortedListByNameUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,9 +14,15 @@ object CastFeatureModule {
 
     @Provides
     @Singleton
-    fun provideCastRepository(api: ApiClient): CastRepository {
-        return CastRepositoryImpl(api)
+    fun provideFilterByNameUseCase(): FilterListByNameUseCase {
+        return FilterListByNameUseCase()
     }
+
+    @Provides
+    @Singleton
+    fun provideSortedByNameUseCase(): SortedListByNameUseCase {
+        return SortedListByNameUseCase()
+    }
+
 }
 
- */

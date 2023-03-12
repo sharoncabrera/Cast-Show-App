@@ -1,8 +1,8 @@
 package com.example.castshow.cast_show_feature.data.repository
 
-import com.example.castshow.cast_show_feature.data.mapper.toCharacter
+import com.example.castshow.cast_show_feature.components.mapper.toCharacter
 import com.example.castshow.cast_show_feature.domain.CastRepository
-import com.example.castshow.cast_show_feature.domain.model.Character
+import com.example.castshow.cast_show_feature.domain.use_case.model.Character
 import com.example.castshow.core.network.ApiClient
 import javax.inject.Inject
 
