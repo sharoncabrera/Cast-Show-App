@@ -4,4 +4,4 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class ApiResponse(var info: Info, var results: List<Character>)
+data class ApiResponse(var info: InfoResponse, var results: List<CharacterResponse>)

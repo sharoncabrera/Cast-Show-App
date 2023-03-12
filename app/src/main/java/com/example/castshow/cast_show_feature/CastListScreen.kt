@@ -1,24 +1,26 @@
 package com.example.castshow.cast_show_feature
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.castshow.cast_show_feature.components.CharacterCardItem
 import com.example.castshow.core.presentation.ScreenRoute
 import com.example.castshow.ui.theme.DarkerGreen
+import com.example.castshow.ui.theme.GradientGreenDarkerGreen
 import com.example.castshow.ui.theme.Green
 import com.example.castshow.ui.theme.White
 
@@ -31,12 +33,11 @@ fun CastListScreen(
 
     val scaffoldState = rememberScaffoldState()
 
-
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                backgroundColor = Green,
+                backgroundColor = DarkerGreen,
                 title = {
                     Text(
                         text = "Rick and Morty cast",
@@ -48,43 +49,80 @@ fun CastListScreen(
 
     ) { padding ->
         print(padding)
-        val gradientGreenDarkerGreen = Brush.verticalGradient(0f to Green, 1000f to DarkerGreen)
 
-        //TODO: modificar quitando !
-        if (castListViewModel.characterList.isEmpty()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(DarkerGreen),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "There are not characters")
-            }
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 10.dp, end = 10.dp, bottom = 5.dp),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Search,
+                            contentDescription = "searchIcon"
+                        )
+                    },
+                    value = "",//orderChooseVendorViewModel.vendorsSearchQuery,
+                    onValueChange = {
+                        // orderChooseVendorViewModel.onSearchQueryChange(it)
+                    },
+                    colors = TextFieldDefaults.textFieldColors(
+                        textColor = White,
+                        cursorColor = White,
+                        focusedLabelColor = White,
+                        focusedIndicatorColor = White,
 
-        } else {
+                        ),
+                    label = {
+                        Text("Search Character")
+                    },
+                    maxLines = 1
+                )
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(gradientGreenDarkerGreen),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+            Divider()
 
-            ) {
-                items(
-                    castListViewModel.characterList,
-                    key = { character ->
-                        character.id
-                    }
+            if (castListViewModel.characterList.isEmpty()) {
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(GradientGreenDarkerGreen),
+                    contentAlignment = Alignment.Center
                 ) {
-                    CharacterCardItem(
-                        it
-                    ) { navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${it.id}") }
-
+                    Text(text = "There are not characters", color = White)
                 }
+
+            } else {
+
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(GradientGreenDarkerGreen),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+
+                ) {
+                    items(
+                        castListViewModel.characterList,
+                        key = { character ->
+                            character.id
+                        }
+                    ) {
+                        CharacterCardItem(
+                            it
+                        ) { navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${it}") }
+
+                    }
+                }
+
             }
+
 
         }
-
-
     }
 }

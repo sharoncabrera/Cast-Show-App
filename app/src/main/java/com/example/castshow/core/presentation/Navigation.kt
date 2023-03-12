@@ -5,6 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.castshow.cast_show_feature.CastListScreen
+import com.example.castshow.cast_show_feature.DetailedInfoCharacterScreen
 
 @Composable
 fun Navigation() {
@@ -18,7 +19,13 @@ fun Navigation() {
         composable(ScreenRoute.CastListScreen.route) {
             CastListScreen(navController = navController)
         }
-        composable(ScreenRoute.DetailedInfoCharacterScreen.route + "/{characterId}") {
+        composable(ScreenRoute.DetailedInfoCharacterScreen.route + "/{character}") {
+/*
+            DetailedInfoCharacterScreen(
+                navController = navController,
+                character = it.arguments?.getString("vendorId")
+            )
+            */
 
         }
     }

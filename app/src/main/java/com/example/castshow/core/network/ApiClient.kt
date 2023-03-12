@@ -10,16 +10,14 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-
 class ApiClient {
     companion object {
         lateinit var instance: ApiClient
     }
-
     var page = 1
     var numberTotalofPages = 1
 
-    private val baseUrl = "https://rickandmortyapi.com/"
+    private val baseUrl = "https://rickandmortyapi.com/api/"
     private val client = HttpClient(CIO) {
         install(ContentNegotiation) {
             json(Json { ignoreUnknownKeys = true })
@@ -27,14 +25,13 @@ class ApiClient {
     }
 
 
-    suspend fun getData(): Result<List<com.example.castshow.core.data.Character>> {
+    suspend fun getData(): Result<List<com.example.castshow.core.data.CharacterResponse>> {
 
         if (page > numberTotalofPages) {
             return Result.success(listOf())
         }
 
         //"https://rickandmortyapi.com/api/character?page=2"
-
         val response = client.get {
             url("${baseUrl}character")
             parameter("page", page)
@@ -42,7 +39,8 @@ class ApiClient {
         return if (response.status.isSuccess()) {
             page++
             val result: ApiResponse = response.body()
-           // numberTotalofPages = result.total
+
+          //  numberTotalofPages = result.total
             Result.success(result.results)
         } else {
             Result.failure(error("Something went wrong"))

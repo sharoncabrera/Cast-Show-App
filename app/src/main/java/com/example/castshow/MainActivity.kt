@@ -13,8 +13,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            window.statusBarColor = Green.toArgb()
-            window.navigationBarColor = DarkerGreen.toArgb()
+            window.statusBarColor = DarkerGreen.toArgb()
+            window.navigationBarColor = Green.toArgb()
             CastShowTheme {
                 Navigation()
             }

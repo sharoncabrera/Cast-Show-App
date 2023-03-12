@@ -3,7 +3,7 @@ package com.example.castshow.core.data
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Origin(
+data class OriginResponse(
     var name: String,
     var url: String
 )
