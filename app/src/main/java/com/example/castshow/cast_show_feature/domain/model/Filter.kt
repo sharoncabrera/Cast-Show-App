@@ -1,4 +1,4 @@
-package com.example.castshow.cast_show_feature.domain.use_case.model
+package com.example.castshow.cast_show_feature.domain.model
 
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.mutableStateOf

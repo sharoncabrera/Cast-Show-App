@@ -12,7 +12,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Circle
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -21,13 +20,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.toUpperCase
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.castshow.cast_show_feature.domain.use_case.model.Character
-import com.example.castshow.ui.theme.Black
+import com.example.castshow.core.domain.model.Character
+import com.example.castshow.core.util.CharacterStatus
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.Green
 
@@ -119,8 +117,4 @@ fun CharacterCardItem(
             }
         }
     }
-}
-
-enum class CharacterStatus {
-    DEAD, ALIVE
 }

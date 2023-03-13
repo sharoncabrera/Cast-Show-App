@@ -1,6 +1,6 @@
 package com.example.castshow.core.network
 
-import com.example.castshow.core.data.ApiResponse
+import com.example.castshow.core.domain.model.ApiResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -9,7 +9,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
-import com.example.castshow.core.data.CharacterResponse
+import com.example.castshow.core.domain.model.CharacterResponse
 
 class ApiClient {
     companion object {

@@ -19,13 +19,13 @@ fun Navigation() {
         composable(ScreenRoute.CastListScreen.route) {
             CastListScreen(navController = navController)
         }
-        composable(ScreenRoute.DetailedInfoCharacterScreen.route + "/{character}") {
-/*
+        composable(ScreenRoute.DetailedInfoCharacterScreen.route + "/{characterId}") {
+
             DetailedInfoCharacterScreen(
                 navController = navController,
-                character = it.arguments?.getString("vendorId")
+                characterId = it.arguments?.getString("characterId")
             )
-            */
+
 
         }
     }
@@ -33,7 +33,6 @@ fun Navigation() {
 }
 
 sealed class ScreenRoute(val route: String) {
-
     object CastListScreen : ScreenRoute("show_cast_list_screen")
     object DetailedInfoCharacterScreen : ScreenRoute("detailed_info_character_screen")
 }

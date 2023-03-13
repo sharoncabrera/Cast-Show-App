@@ -18,15 +18,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.example.castshow.cast_show_feature.domain.use_case.model.Filter
-import com.example.castshow.ui.theme.Black
-import com.example.castshow.ui.theme.DarkerGreen
-import com.example.castshow.ui.theme.Green
-import com.example.castshow.ui.theme.White
+import com.example.castshow.cast_show_feature.domain.model.Filter
+import com.example.castshow.ui.theme.*
 
 @Composable
 fun FilterBar(
@@ -41,15 +39,18 @@ fun FilterBar(
         contentPadding = PaddingValues(start = 12.dp, end = 8.dp),
         modifier = Modifier.heightIn(min = 56.dp)
     ) {
-        item {
-            IconButton(onClick = onShowFilters) {
-                Icon(
-                    imageVector = icon,
-                    tint = White,
-                    contentDescription = "filter icon",
-                )
+        /*    item {
+                IconButton(onClick = onShowFilters) {
+                    Icon(
+                        imageVector = icon,
+                        tint = Color.White,
+                        contentDescription = "filter icon",
+                    )
+                }
             }
-        }
+
+         */
+
         items(filters) { filter ->
             FilterChip(filter = filter, shape = MaterialTheme.shapes.small)
         }
@@ -77,9 +78,10 @@ fun FilterChip(
         elevation = 2.dp,
         modifier = modifier
             .height(28.dp)
-            .border(1.dp, color = Color.Black, shape = RoundedCornerShape(15.dp)),
+            .border(1.dp, color = Color.Black, shape = RoundedCornerShape(15.dp))
 
-        ) {
+
+    ) {
         val interactionSource = remember { MutableInteractionSource() }
 
         val pressed by interactionSource.collectIsPressedAsState()
@@ -97,7 +99,6 @@ fun FilterChip(
                     interactionSource = interactionSource,
                     indication = null
                 )
-                // .clip(CircleShape)
                 .then(backgroundPressed)
                 .background(backgroundColor)
 

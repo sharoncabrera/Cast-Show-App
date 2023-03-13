@@ -1,4 +1,4 @@
-package com.example.castshow.core.data
+package com.example.castshow.core.domain.model
 
 import kotlinx.serialization.Serializable
 

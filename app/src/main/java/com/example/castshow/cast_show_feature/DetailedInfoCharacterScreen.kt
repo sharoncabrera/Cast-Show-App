@@ -15,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
@@ -28,7 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.castshow.cast_show_feature.domain.use_case.model.Character
+import com.example.castshow.core.util.CharacterStatus
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.GradientGreenDarkerGreen
 import com.example.castshow.ui.theme.Green
@@ -37,9 +36,14 @@ import com.example.castshow.ui.theme.White
 @Composable
 fun DetailedInfoCharacterScreen(
     navController: NavController,
-    character: Character, //TODO: modificarlo
+    characterId: String?,
     detailedInfoViewModel: DetailedInfoViewModel = hiltViewModel()
 ) {
+    val tintStatus = when (detailedInfoViewModel.characterItem.status.uppercase()) {
+        CharacterStatus.DEAD.name -> Color.Red
+        CharacterStatus.ALIVE.name -> Green
+        else -> Color.Gray
+    }
 
     Column {
         Box(
@@ -58,20 +62,20 @@ fun DetailedInfoCharacterScreen(
                 ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(character.image)
+                        .data(detailedInfoViewModel.characterItem.image)
                         .crossfade(true)
                         .build(),
-                    contentDescription = "${character.name} photo",
+                    contentDescription = "${detailedInfoViewModel.characterItem.name} photo",
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
                         .size(200.dp)
-                        .border(4.dp, Color.Red, CircleShape)
+                        .border(4.dp, tintStatus, CircleShape)
                 )
 
             }
 
             Text(
-                text = character.name,
+                text = detailedInfoViewModel.characterItem.name,
                 color = White,
                 fontSize = 25.sp,
                 fontWeight = FontWeight.Bold,
@@ -91,21 +95,20 @@ fun DetailedInfoCharacterScreen(
                 .verticalScroll(rememberScrollState())
                 .weight(weight = 1f, fill = false)
         ) {
-            IconText(Icons.Default.Face, character.name)
+            IconText(Icons.Default.Face, detailedInfoViewModel.characterItem.name)
             Divider()
-            IconText(Icons.Default.AccountTree, character.species)
+            IconText(Icons.Default.AccountTree, detailedInfoViewModel.characterItem.species)
             Divider()
-            IconText(Icons.Default.Transgender, character.gender)
+            IconText(Icons.Default.Transgender, detailedInfoViewModel.characterItem.gender)
             Divider()
-            IconText(Icons.Default.Rocket, character.origin)
+            IconText(Icons.Default.Rocket, detailedInfoViewModel.characterItem.origin)
             Divider()
-            IconText(Icons.Default.Home, character.location)
+            IconText(Icons.Default.Home, detailedInfoViewModel.characterItem.location)
             Text(
                 modifier = Modifier.padding(top = 10.dp, start = 5.dp, bottom = 10.dp),
                 text = "Episodes in which the character has appeared:",
                 color = Color.Gray,
                 fontWeight = FontWeight.Bold,
-                //fontSize = 20.sp,
             )
             IconText(Icons.Default.List, "episodes")
         }
