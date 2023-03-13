@@ -9,14 +9,17 @@ import javax.inject.Inject
 class CastRepositoryImpl @Inject constructor(
 ) : CastRepository {
     override suspend fun getCharacters(): List<Character> {
-
         ApiClient.instance = ApiClient()
         return ApiClient.instance.getData().getOrDefault(listOf()).map {
             it.toCharacter()
         }
     }
 
-    override suspend fun getDetailedInfoCharacter(id: String): Character {
-        TODO("Not yet implemented")
+    override suspend fun getCharactersFilteredBy(status: String, gender: String): List<Character> {
+        return ApiClient.instance.getDataFilteredBy(status = status, gender = gender)
+            .getOrDefault(listOf()).map {
+            it.toCharacter()
+        }
     }
+
 }

@@ -49,7 +49,6 @@ fun CharacterCardItem(
         modifier = Modifier
             .fillMaxWidth(0.95f)
             .fillMaxHeight(0.8f)
-            .border(1.dp, color = Black, shape = RoundedCornerShape(15.dp))
             .clickable {
                 onClick()
             }

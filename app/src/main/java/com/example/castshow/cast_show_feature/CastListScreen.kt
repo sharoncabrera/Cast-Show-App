@@ -10,8 +10,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.FilterList
+import androidx.compose.material.icons.filled.HeartBroken
+import androidx.compose.material.icons.filled.MonitorHeart
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.rounded.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -25,7 +30,11 @@ import com.example.castshow.core.presentation.ScreenRoute
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.GradientGreenDarkerGreen
 import com.example.castshow.ui.theme.White
-
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import com.example.castshow.cast_show_feature.components.FilterBar
+import com.example.castshow.cast_show_feature.domain.use_case.model.genderFilters
+import com.example.castshow.cast_show_feature.domain.use_case.model.statusFilters
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -36,6 +45,7 @@ fun CastListScreen(
 
     val scaffoldState = rememberScaffoldState()
     val keyboardController = LocalSoftwareKeyboardController.current
+    var filtersVisible by rememberSaveable { mutableStateOf(false) }
 
 
     Scaffold(
@@ -53,7 +63,11 @@ fun CastListScreen(
                     Icon(
                         modifier = Modifier
                             .padding(end = 10.dp)
-                            .clickable { },
+                            .clickable {
+                                //castListViewModel.filterBy(status = "dead", gender = "male")
+                                // FilterBar(filters, onShowFilters = { filtersVisible = true })
+                                filtersVisible = !filtersVisible
+                            },
                         imageVector = Icons.Default.FilterList,
                         tint = White,
                         contentDescription = ""
@@ -71,6 +85,19 @@ fun CastListScreen(
                 .fillMaxSize()
                 .background(DarkerGreen),
         ) {
+
+            if (filtersVisible) {
+                //TODO: Filter
+                FilterBar(filters = statusFilters, icon = Icons.Default.HeartBroken) {
+
+                }
+
+                FilterBar(filters = genderFilters, icon = Icons.Rounded.Transgender) {
+
+                }
+
+            }
+
 
             OutlinedTextField(
                 modifier = Modifier
@@ -147,3 +174,4 @@ fun CastListScreen(
         }
     }
 }
+

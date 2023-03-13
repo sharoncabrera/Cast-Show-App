@@ -48,10 +48,15 @@ class CastListViewModel @Inject constructor(
     }
 
     private fun setupCharactersToShow() {
-
         charactersToShow = filterListByNameUseCase(
             /*sortedListByNameUseCase(characters)*/characters, charactersSearchQuery
         )
+    }
+
+    fun filterBy(status: String = "", gender: String = "") {
+        viewModelScope.launch {
+            charactersToShow = castRepository.getCharactersFilteredBy(status, gender)
+        }
     }
 
 
