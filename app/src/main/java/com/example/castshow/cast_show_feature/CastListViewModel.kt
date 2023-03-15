@@ -9,8 +9,9 @@ import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUs
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
 import com.example.castshow.core.data.model.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,8 +27,12 @@ class CastListViewModel @Inject constructor(
     var charactersSearchQuery by mutableStateOf("")
         private set
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     init {
         viewModelScope.launch {
+            _isLoading.value = true
             characters = getCharactersUseCase()
             setupCharactersToShow()
         }
@@ -35,6 +40,7 @@ class CastListViewModel @Inject constructor(
 
     fun getMoreCharacters() {
         viewModelScope.launch {
+            _isLoading.value = true
             characters = characters + getCharactersUseCase()
             setupCharactersToShow()
         }
@@ -46,6 +52,7 @@ class CastListViewModel @Inject constructor(
     }
 
     private fun setupCharactersToShow() {
+        _isLoading.value = false
         charactersToShow = filterListByNameUseCase(
             characters, charactersSearchQuery
         )

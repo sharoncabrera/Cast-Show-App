@@ -9,11 +9,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -22,8 +19,8 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.castshow.ui.components.CharacterCardItem
 import com.example.castshow.core.presentation.ScreenRoute
+import com.example.castshow.ui.components.CharacterCardItem
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.GradientGreenDarkerGreen
 import com.example.castshow.ui.theme.White
@@ -38,7 +35,7 @@ fun CastListScreen(
     val scaffoldState = rememberScaffoldState()
     val keyboardController = LocalSoftwareKeyboardController.current
     var filtersVisible by rememberSaveable { mutableStateOf(false) }
-
+    val isLoading by castListViewModel.isLoading.collectAsState()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -51,18 +48,6 @@ fun CastListScreen(
                         color = White,
                     )
                 },
-                actions = {
-/* TODO: Filtrado
-                    IconButton(onClick = { filtersVisible = !filtersVisible }) {
-                        Icon(
-                            imageVector = Icons.Default.FilterList,
-                            tint = Color.White,
-                            contentDescription = "filter icon",
-                        )
-                    }
-
- */
-                }
             )
         }
 
@@ -70,6 +55,8 @@ fun CastListScreen(
         print(padding)
 
         Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
                 .background(DarkerGreen),
@@ -111,37 +98,46 @@ fun CastListScreen(
 
             Divider()
 
-            if (castListViewModel.charactersToShow.isEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(GradientGreenDarkerGreen),
+                contentAlignment = Alignment.Center
+            ) {
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(GradientGreenDarkerGreen),
-                    contentAlignment = Alignment.Center
-                ) {
+
+                if (castListViewModel.charactersToShow.isEmpty()) {
+
                     Text(text = "There are not characters", color = White)
-                }
 
-            } else {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(GradientGreenDarkerGreen),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                } else {
 
-                ) {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(GradientGreenDarkerGreen),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
 
-                    itemsIndexed(castListViewModel.charactersToShow) { index, item ->
-                        CharacterCardItem(
-                            item
-                        ) {
-                            navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${item.id}")
+                    ) {
+
+                        itemsIndexed(castListViewModel.charactersToShow) { index, item ->
+                            CharacterCardItem(
+                                item
+                            ) {
+                                navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${item.id}")
+                            }
+                            if (index == castListViewModel.charactersToShow.lastIndex) {
+                                castListViewModel.getMoreCharacters()
+                            }
                         }
-                        if (index == castListViewModel.charactersToShow.lastIndex) {
-                            castListViewModel.getMoreCharacters()
-                        }
+
                     }
                 }
+                if (isLoading) {
+                    CircularProgressIndicator()
+                }
+
             }
         }
     }
