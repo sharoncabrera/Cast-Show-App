@@ -6,6 +6,7 @@ import com.example.castshow.cast_show_feature.data.repository.CastRepositoryImpl
 import com.example.castshow.cast_show_feature.domain.repository.CastRepository
 import com.example.castshow.core.data.CastShowDatabase
 import com.example.castshow.core.data.CharacterDao
+import com.example.castshow.core.network.ApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,10 +18,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
+    @Singleton
+    @Provides
+    fun provideApi(): ApiClient {
+        return ApiClient()
+    }
+
     @Provides
     @Singleton
-    fun provideCastRepository(characterDao: CharacterDao): CastRepository {
-        return CastRepositoryImpl(characterDao)
+    fun provideCastRepository(characterDao: CharacterDao, apiClient: ApiClient): CastRepository {
+        return CastRepositoryImpl(characterDao, api = apiClient)
     }
 
     @Provides

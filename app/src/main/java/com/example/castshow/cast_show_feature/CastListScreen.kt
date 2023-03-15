@@ -3,13 +3,12 @@ package com.example.castshow.cast_show_feature
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -18,16 +17,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.castshow.cast_show_feature.components.CharacterCardItem
-import com.example.castshow.cast_show_feature.components.FilterBar
-import com.example.castshow.cast_show_feature.domain.model.genderFilters
-import com.example.castshow.cast_show_feature.domain.model.statusFilters
+import com.example.castshow.ui.components.CharacterCardItem
 import com.example.castshow.core.presentation.ScreenRoute
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.GradientGreenDarkerGreen
@@ -57,7 +52,7 @@ fun CastListScreen(
                     )
                 },
                 actions = {
-
+/* TODO: Filtrado
                     IconButton(onClick = { filtersVisible = !filtersVisible }) {
                         Icon(
                             imageVector = Icons.Default.FilterList,
@@ -66,8 +61,8 @@ fun CastListScreen(
                         )
                     }
 
+ */
                 }
-
             )
         }
 
@@ -79,23 +74,6 @@ fun CastListScreen(
                 .fillMaxSize()
                 .background(DarkerGreen),
         ) {
-
-            if (filtersVisible) {
-                //TODO: logic Filter - cachear
-                FilterBar(filters = statusFilters, icon = Icons.Default.HeartBroken) {
-                    var value = statusFilters.map {
-                        it.enabled
-                    }
-                    castListViewModel.filterBy(status = "")
-                }
-
-                FilterBar(filters = genderFilters, icon = Icons.Rounded.Transgender) {
-                    castListViewModel.filterBy(gender = "")
-
-                }
-
-            }
-
 
             OutlinedTextField(
                 modifier = Modifier
@@ -145,7 +123,6 @@ fun CastListScreen(
                 }
 
             } else {
-
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
@@ -153,24 +130,19 @@ fun CastListScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
 
                 ) {
-                    items(
-                        castListViewModel.charactersToShow,
-                        key = { character ->
-                            character.id
-                        }
-                    ) {
-                        CharacterCardItem(
-                            it
-                        ) {
-                            navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${it.id}")
-                        }
 
+                    itemsIndexed(castListViewModel.charactersToShow) { index, item ->
+                        CharacterCardItem(
+                            item
+                        ) {
+                            navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${item.id}")
+                        }
+                        if (index == castListViewModel.charactersToShow.lastIndex) {
+                            castListViewModel.getMoreCharacters()
+                        }
                     }
                 }
-
             }
-
-
         }
     }
 }

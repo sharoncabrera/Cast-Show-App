@@ -7,27 +7,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.castshow.cast_show_feature.domain.repository.CastRepository
 import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
+import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.SortedListByNameUseCase
+import com.example.castshow.core.data.model.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.castshow.core.domain.model.Character
 
 @HiltViewModel
 class CastListViewModel @Inject constructor(
-    private val castRepository: CastRepository,
-    private val sortedListByNameUseCase: SortedListByNameUseCase,
-    private val filterListByNameUseCase: FilterListByNameUseCase
+    private val filterListByNameUseCase: FilterListByNameUseCase,
+    private val getCharactersUseCase: GetCharactersUseCase
 ) : ViewModel() {
 
     var charactersToShow by mutableStateOf<List<Character>>(emptyList())
         private set
 
     private lateinit var characters: List<Character>
-
-    private var characterList by mutableStateOf<List<Character>>(
-        emptyList()
-    )
         private set
 
     var charactersSearchQuery by mutableStateOf("")
@@ -35,9 +31,15 @@ class CastListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            characters = castRepository.getCharacters()
-            //TODO: hay algo raro
-            characterList = characters
+            characters = getCharactersUseCase()
+
+            setupCharactersToShow()
+        }
+    }
+
+    fun getMoreCharacters() {
+        viewModelScope.launch {
+            characters = characters + getCharactersUseCase()
             setupCharactersToShow()
         }
     }
@@ -49,14 +51,8 @@ class CastListViewModel @Inject constructor(
 
     private fun setupCharactersToShow() {
         charactersToShow = filterListByNameUseCase(
-            /*sortedListByNameUseCase(characters)*/characters, charactersSearchQuery
+            characters, charactersSearchQuery
         )
-    }
-
-    fun filterBy(status: String = "", gender: String = "") {
-        viewModelScope.launch {
-            charactersToShow = castRepository.getCharactersFilteredBy(status, gender)
-        }
     }
 
 

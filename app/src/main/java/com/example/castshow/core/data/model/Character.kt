@@ -1,4 +1,4 @@
-package com.example.castshow.core.domain.model
+package com.example.castshow.core.data.model
 
 import com.example.castshow.core.domain.SelectAndSortableByName
 
@@ -12,5 +12,6 @@ data class Character(
     val origin: String = "",
     val location: String = "",
     val image: String = "",
+    val episode: Int = 0
 ) : SelectAndSortableByName
 

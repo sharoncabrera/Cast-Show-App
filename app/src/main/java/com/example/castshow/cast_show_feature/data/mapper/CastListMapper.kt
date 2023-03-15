@@ -1,16 +1,7 @@
-package com.example.castshow.cast_show_feature.mapper
+package com.example.castshow.cast_show_feature.data.mapper
 
-import com.example.castshow.core.domain.model.Character
-import com.example.castshow.cast_show_feature.state.CharacterListItem
 import com.example.castshow.core.data.entities.CharacterEntity
-
-
-fun Character.toCharacterListItem(): CharacterListItem {
-    return CharacterListItem(
-        id = id,
-        name = name
-    )
-}
+import com.example.castshow.core.data.model.Character
 
 fun Character.toCharacterEntity(): CharacterEntity {
     return CharacterEntity(
@@ -23,5 +14,6 @@ fun Character.toCharacterEntity(): CharacterEntity {
         origin = origin,
         location = location,
         image = image,
+        episode = episode
     )
 }

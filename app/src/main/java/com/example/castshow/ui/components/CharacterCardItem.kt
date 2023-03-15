@@ -1,4 +1,4 @@
-package com.example.castshow.cast_show_feature.components
+package com.example.castshow.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.castshow.core.domain.model.Character
+import com.example.castshow.core.data.model.Character
 import com.example.castshow.core.util.CharacterStatus
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.Green
@@ -64,7 +64,7 @@ fun CharacterCardItem(
             Box(
                 modifier = Modifier
                     .align(CenterVertically)
-                    .padding(start = 5.dp)
+                    .padding(start = 5.dp, end = 5.dp)
                     .clip(CircleShape),
 
                 ) {

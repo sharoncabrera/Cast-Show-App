@@ -1,4 +1,4 @@
-package com.example.castshow.core.domain.model
+package com.example.castshow.core.data.model
 
 import kotlinx.serialization.Serializable
 
@@ -13,4 +13,5 @@ data class CharacterResponse(
     val origin: OriginResponse,
     val location: LocationResponse,
     val image: String,
+    val episode: List<String>
 )

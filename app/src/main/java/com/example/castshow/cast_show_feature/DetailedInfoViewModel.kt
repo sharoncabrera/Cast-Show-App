@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.castshow.cast_show_feature.domain.repository.CastRepository
-import com.example.castshow.core.domain.model.Character
+import com.example.castshow.cast_show_feature.domain.use_case.GetCharacterByIdUseCase
+import com.example.castshow.core.data.model.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailedInfoViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val castRepository: CastRepository
+    private val getCharacterByIdUseCase: GetCharacterByIdUseCase
 ) : ViewModel() {
 
     private val characterId: String = savedStateHandle.get<String>(CHARACTER_ID_SAVED_STATE_KEY)!!
@@ -25,7 +25,7 @@ class DetailedInfoViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            character = castRepository.getCharacterById(characterId.toInt())
+            character = getCharacterByIdUseCase(characterId.toInt())
             characterItem = character
         }
     }

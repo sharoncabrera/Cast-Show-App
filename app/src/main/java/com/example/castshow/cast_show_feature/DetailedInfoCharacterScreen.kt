@@ -95,25 +95,30 @@ fun DetailedInfoCharacterScreen(
                 .verticalScroll(rememberScrollState())
                 .weight(weight = 1f, fill = false)
         ) {
-            IconText(Icons.Default.Face, detailedInfoViewModel.characterItem.name)
-            Divider()
-            IconText(Icons.Default.AccountTree, detailedInfoViewModel.characterItem.species)
+            if (detailedInfoViewModel.characterItem.type.isNotEmpty()) {
+                IconText(Icons.Default.Face, detailedInfoViewModel.characterItem.type)
+                Divider()
+            }
+
+            IconText(Icons.Default.Hub, detailedInfoViewModel.characterItem.species)
             Divider()
             IconText(Icons.Default.Transgender, detailedInfoViewModel.characterItem.gender)
             Divider()
-            IconText(Icons.Default.Rocket, detailedInfoViewModel.characterItem.origin)
+            IconText(Icons.Default.Home, detailedInfoViewModel.characterItem.origin)
             Divider()
-            IconText(Icons.Default.Home, detailedInfoViewModel.characterItem.location)
+            IconText(Icons.Default.LocationOn, detailedInfoViewModel.characterItem.location)
             Text(
                 modifier = Modifier.padding(top = 10.dp, start = 5.dp, bottom = 10.dp),
                 text = "Episodes in which the character has appeared:",
                 color = Color.Gray,
                 fontWeight = FontWeight.Bold,
             )
-            IconText(Icons.Default.List, "episodes")
+            IconText(
+                Icons.Default.Tv,
+                "${detailedInfoViewModel.characterItem.episode} episode${if (detailedInfoViewModel.characterItem.episode > 1) "s" else ""}"
+
+            )
         }
-
-
     }
 
 }
