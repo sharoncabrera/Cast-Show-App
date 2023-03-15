@@ -11,7 +11,7 @@ https://user-images.githubusercontent.com/9903881/225378227-f1adc54a-5411-4e23-a
 
 Character Images are retrieved using the Coil library
 
-Tests have been implemented
+Tests have been implemented with Mockk library
 
 Search functionality by name
 
