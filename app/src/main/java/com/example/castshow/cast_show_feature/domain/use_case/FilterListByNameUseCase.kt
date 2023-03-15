@@ -8,7 +8,6 @@ class FilterListByNameUseCase {
     ): List<T> where T : SelectAndSortableByName {
         return list.filter { item ->
             item.name.lowercase().contains(name.lowercase())
-
         }
     }
 }

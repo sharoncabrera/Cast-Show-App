@@ -5,13 +5,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.castshow.cast_show_feature.domain.repository.CastRepository
 import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
-import com.example.castshow.cast_show_feature.domain.use_case.SortedListByNameUseCase
 import com.example.castshow.core.data.model.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,10 +20,8 @@ class CastListViewModel @Inject constructor(
 ) : ViewModel() {
 
     var charactersToShow by mutableStateOf<List<Character>>(emptyList())
-        private set
 
-    private lateinit var characters: List<Character>
-        private set
+    private var characters: List<Character> = (emptyList())
 
     var charactersSearchQuery by mutableStateOf("")
         private set
@@ -32,7 +29,6 @@ class CastListViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             characters = getCharactersUseCase()
-
             setupCharactersToShow()
         }
     }
@@ -54,6 +50,4 @@ class CastListViewModel @Inject constructor(
             characters, charactersSearchQuery
         )
     }
-
-
 }
