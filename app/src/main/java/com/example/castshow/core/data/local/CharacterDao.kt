@@ -1,7 +1,7 @@
-package com.example.castshow.core.data
+package com.example.castshow.core.data.local
 
 import androidx.room.*
-import com.example.castshow.core.data.entities.CharacterEntity
+import com.example.castshow.core.data.local.entities.CharacterEntity
 
 @Dao
 interface CharacterDao {

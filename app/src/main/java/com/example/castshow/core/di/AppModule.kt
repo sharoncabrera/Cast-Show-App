@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.castshow.cast_show_feature.data.repository.CastRepositoryImpl
 import com.example.castshow.cast_show_feature.domain.repository.CastRepository
-import com.example.castshow.core.data.CastShowDatabase
-import com.example.castshow.core.data.CharacterDao
+import com.example.castshow.core.data.local.CastShowDatabase
+import com.example.castshow.core.data.local.CharacterDao
 import com.example.castshow.core.network.ApiClient
 import dagger.Module
 import dagger.Provides

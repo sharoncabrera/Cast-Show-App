@@ -1,7 +1,7 @@
 package com.example.castshow.cast_show_feature.data.mapper
 
-import com.example.castshow.core.data.entities.CharacterEntity
-import com.example.castshow.core.data.model.Character
+import com.example.castshow.core.data.local.entities.CharacterEntity
+import com.example.castshow.core.data.local.model.Character
 
 fun Character.toCharacterEntity(): CharacterEntity {
     return CharacterEntity(

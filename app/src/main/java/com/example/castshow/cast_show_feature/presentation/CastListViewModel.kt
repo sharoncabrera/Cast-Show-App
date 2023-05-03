@@ -1,4 +1,4 @@
-package com.example.castshow.cast_show_feature
+package com.example.castshow.cast_show_feature.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
-import com.example.castshow.core.data.model.Character
+import com.example.castshow.core.data.local.model.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

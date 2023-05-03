@@ -1,9 +1,9 @@
-package com.example.castshow.core.data.model
+package com.example.castshow.core.data.local.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class LocationResponse(
+data class OriginResponse(
     var name: String,
     var url: String
 )

@@ -3,9 +3,9 @@ package com.example.castshow.cast_show_feature.data.repository
 import com.example.castshow.cast_show_feature.data.mapper.toDomain
 import com.example.castshow.cast_show_feature.domain.repository.CastRepository
 import com.example.castshow.cast_show_feature.data.mapper.toCharacterEntity
-import com.example.castshow.core.data.CharacterDao
+import com.example.castshow.core.data.local.CharacterDao
 import com.example.castshow.core.data.mapper.toCharacter
-import com.example.castshow.core.data.model.Character
+import com.example.castshow.core.data.local.model.Character
 import com.example.castshow.core.network.ApiClient
 import javax.inject.Inject
 

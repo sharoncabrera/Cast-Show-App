@@ -1,7 +1,7 @@
 package com.example.castshow.core.network
 
-import com.example.castshow.core.data.model.ApiResponse
-import com.example.castshow.core.data.model.CharacterResponse
+import com.example.castshow.core.data.local.model.ApiResponse
+import com.example.castshow.core.data.local.model.CharacterResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*

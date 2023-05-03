@@ -1,22 +1,15 @@
 package com.example.castshow
 
-import com.example.castshow.cast_show_feature.CastListViewModel
+import com.example.castshow.cast_show_feature.presentation.CastListViewModel
 import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
-import com.example.castshow.core.data.model.Character
+import com.example.castshow.core.data.local.model.Character
 import io.mockk.coEvery
-import io.mockk.coJustRun
-import io.mockk.every
 import io.mockk.mockk
 import junit.framework.Assert.assertEquals
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.advanceUntilIdle
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
-import kotlinx.coroutines.withContext
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

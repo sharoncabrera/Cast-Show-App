@@ -1,7 +1,7 @@
 package com.example.castshow.cast_show_feature.data.mapper
 
-import com.example.castshow.core.data.model.Character
-import com.example.castshow.core.data.model.CharacterResponse
+import com.example.castshow.core.data.local.model.Character
+import com.example.castshow.core.data.local.model.CharacterResponse
 
 fun CharacterResponse.toDomain(): Character {
     return Character(

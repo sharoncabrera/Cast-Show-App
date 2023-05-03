@@ -1,4 +1,4 @@
-package com.example.castshow.core.data.model
+package com.example.castshow.core.data.local.model
 
 import com.example.castshow.core.domain.SelectAndSortableByName
 

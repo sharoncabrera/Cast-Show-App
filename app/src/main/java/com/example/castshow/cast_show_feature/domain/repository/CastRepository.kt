@@ -1,6 +1,6 @@
 package com.example.castshow.cast_show_feature.domain.repository
 
-import com.example.castshow.core.data.model.Character
+import com.example.castshow.core.data.local.model.Character
 
 interface CastRepository {
 

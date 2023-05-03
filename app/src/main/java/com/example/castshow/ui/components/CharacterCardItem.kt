@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.example.castshow.core.data.model.Character
+import com.example.castshow.core.data.local.model.Character
 import com.example.castshow.core.util.CharacterStatus
 import com.example.castshow.ui.theme.DarkerGreen
 import com.example.castshow.ui.theme.Green

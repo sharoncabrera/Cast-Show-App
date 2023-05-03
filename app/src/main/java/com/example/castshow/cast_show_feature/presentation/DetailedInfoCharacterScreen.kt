@@ -1,4 +1,4 @@
-package com.example.castshow.cast_show_feature
+package com.example.castshow.cast_show_feature.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
