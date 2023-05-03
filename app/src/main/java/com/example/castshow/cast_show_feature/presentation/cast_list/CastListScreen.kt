@@ -73,7 +73,6 @@ fun CastListScreen(
                 onValueChange = {
 
                     events(CastListEvents.UpdateCharacterName(it))
-                    //castListViewModel.onSearchQueryChange(it)
                 },
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = White,
@@ -116,7 +115,7 @@ fun CastListScreen(
                             .fillMaxSize()
                             .background(GradientGreenDarkerGreen),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                        verticalArrangement = Arrangement.Top
 
                     ) {
 
@@ -127,8 +126,6 @@ fun CastListScreen(
                                 navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${item.id}")
                             }
                             if (index == state.filteredCharacters.lastIndex) {
-                                //castListViewModel.getMoreCharacters()
-
                                 events(CastListEvents.GetMoreCharacters)
                             }
                         }

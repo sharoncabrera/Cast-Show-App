@@ -39,9 +39,10 @@ class CastListViewModel @Inject constructor(
             )
 
             val characters = state.characters
+            val newCharacters = getCharactersUseCase()
 
             state = state.copy(
-                characters = characters + getCharactersUseCase()
+                characters = characters + newCharacters,
             )
             setupCharactersToShow()
         }
@@ -68,14 +69,15 @@ class CastListViewModel @Inject constructor(
         )
     }
 
-    fun onTriggerEvent(event: CastListEvents){
-        when(event){
+    fun onTriggerEvent(event: CastListEvents) {
+        when (event) {
             is CastListEvents.GetMoreCharacters -> {
                 getMoreCharacters()
             }
+
             is CastListEvents.FilterCharacters -> {
-              //  filterCharac()
             }
+
             is CastListEvents.UpdateCharacterName -> {
                 onSearchQueryChange(event.characterName)
             }
