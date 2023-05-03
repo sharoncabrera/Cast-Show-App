@@ -2,8 +2,6 @@ package com.example.castshow.core.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.castshow.core.data.local.model.LocationResponse
-import com.example.castshow.core.data.local.model.OriginResponse
 
 @Entity
 data class CharacterEntity(

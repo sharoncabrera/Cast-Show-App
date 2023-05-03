@@ -1,7 +1,7 @@
 package com.example.castshow
 
 import androidx.lifecycle.SavedStateHandle
-import com.example.castshow.cast_show_feature.presentation.DetailedInfoViewModel
+import com.example.castshow.cast_show_feature.presentation.cast_detail.DetailedInfoViewModel
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharacterByIdUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
 import com.example.castshow.core.data.local.model.Character

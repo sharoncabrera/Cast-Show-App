@@ -1,7 +1,7 @@
 package com.example.castshow.core.network
 
-import com.example.castshow.core.data.local.model.ApiResponse
-import com.example.castshow.core.data.local.model.CharacterResponse
+import com.example.castshow.core.data.local.model.ApiDTO
+import com.example.castshow.core.data.local.model.CharacterDTO
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.cio.*
@@ -26,7 +26,7 @@ class ApiClient {
         }
     }
 
-    suspend fun getData(status: String, gender: String): Result<List<CharacterResponse>> {
+    suspend fun getData(status: String, gender: String): Result<List<CharacterDTO>> {
 
         if (nextUrlPage.isNullOrEmpty() && !prevUrlPage.isNullOrEmpty()) {
             return Result.success(listOf())
@@ -51,7 +51,7 @@ class ApiClient {
 
         return response?.let {
             if (it.status.isSuccess()) {
-                val result: ApiResponse = it.body()
+                val result: ApiDTO = it.body()
                 nextUrlPage = result.component1().next
                 prevUrlPage = result.component1().prev
                 Result.success(result.results)

@@ -1,9 +1,9 @@
 package com.example.castshow.cast_show_feature.data.mapper
 
 import com.example.castshow.core.data.local.model.Character
-import com.example.castshow.core.data.local.model.CharacterResponse
+import com.example.castshow.core.data.local.model.CharacterDTO
 
-fun CharacterResponse.toDomain(): Character {
+fun CharacterDTO.toDomain(): Character {
     return Character(
         id = id,
         name = name,

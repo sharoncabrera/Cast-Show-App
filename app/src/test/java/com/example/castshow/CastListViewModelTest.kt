@@ -1,6 +1,6 @@
 package com.example.castshow
 
-import com.example.castshow.cast_show_feature.presentation.CastListViewModel
+import com.example.castshow.cast_show_feature.presentation.cast_list.CastListViewModel
 import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
 import com.example.castshow.core.data.local.model.Character

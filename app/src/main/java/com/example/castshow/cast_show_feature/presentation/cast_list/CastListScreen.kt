@@ -1,4 +1,4 @@
-package com.example.castshow.cast_show_feature.presentation
+package com.example.castshow.cast_show_feature.presentation.cast_list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,14 +10,12 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.castshow.core.presentation.ScreenRoute
 import com.example.castshow.ui.components.CharacterCardItem
@@ -29,13 +27,12 @@ import com.example.castshow.ui.theme.White
 @Composable
 fun CastListScreen(
     navController: NavController,
-    castListViewModel: CastListViewModel = hiltViewModel()
+    state: CastListState,
+    events: (CastListEvents) -> Unit,
 ) {
 
     val scaffoldState = rememberScaffoldState()
     val keyboardController = LocalSoftwareKeyboardController.current
-    var filtersVisible by rememberSaveable { mutableStateOf(false) }
-    val isLoading by castListViewModel.isLoading.collectAsState()
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -72,9 +69,11 @@ fun CastListScreen(
                         contentDescription = "searchIcon"
                     )
                 },
-                value = castListViewModel.charactersSearchQuery,
+                value = state.characterName,
                 onValueChange = {
-                    castListViewModel.onSearchQueryChange(it)
+
+                    events(CastListEvents.UpdateCharacterName(it))
+                    //castListViewModel.onSearchQueryChange(it)
                 },
                 colors = TextFieldDefaults.textFieldColors(
                     textColor = White,
@@ -106,7 +105,7 @@ fun CastListScreen(
             ) {
 
 
-                if (castListViewModel.charactersToShow.isEmpty()) {
+                if (state.filteredCharacters.isEmpty()) {
 
                     Text(text = "There are not characters", color = White)
 
@@ -121,20 +120,22 @@ fun CastListScreen(
 
                     ) {
 
-                        itemsIndexed(castListViewModel.charactersToShow) { index, item ->
+                        itemsIndexed(state.filteredCharacters) { index, item ->
                             CharacterCardItem(
                                 item
                             ) {
                                 navController.navigate(ScreenRoute.DetailedInfoCharacterScreen.route + "/${item.id}")
                             }
-                            if (index == castListViewModel.charactersToShow.lastIndex) {
-                                castListViewModel.getMoreCharacters()
+                            if (index == state.filteredCharacters.lastIndex) {
+                                //castListViewModel.getMoreCharacters()
+
+                                events(CastListEvents.GetMoreCharacters)
                             }
                         }
 
                     }
                 }
-                if (isLoading) {
+                if (state.isLoading) {
                     CircularProgressIndicator()
                 }
 

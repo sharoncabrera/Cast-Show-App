@@ -1,4 +1,4 @@
-package com.example.castshow.cast_show_feature.presentation
+package com.example.castshow.cast_show_feature.presentation.cast_detail
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -7,7 +7,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharacterByIdUseCase
-import com.example.castshow.core.data.local.model.Character
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,15 +18,16 @@ class DetailedInfoViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val characterId: String? = savedStateHandle.get<String>(CHARACTER_ID_SAVED_STATE_KEY)
-    private lateinit var character: Character
-    var characterItem by mutableStateOf<Character>(Character(3))
+
+    var state by mutableStateOf(CastDetailState())
         private set
 
     init {
         viewModelScope.launch {
             characterId?.let {
-                character = getCharacterByIdUseCase(it.toInt())
-                characterItem = character
+                state = state.copy(
+                    character = getCharacterByIdUseCase(it.toInt())
+                )
             }
         }
     }
