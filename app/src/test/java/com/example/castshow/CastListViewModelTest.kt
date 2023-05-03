@@ -3,6 +3,7 @@ package com.example.castshow
 import com.example.castshow.cast_show_feature.presentation.cast_list.CastListViewModel
 import com.example.castshow.cast_show_feature.domain.use_case.FilterListByNameUseCase
 import com.example.castshow.cast_show_feature.domain.use_case.GetCharactersUseCase
+import com.example.castshow.cast_show_feature.presentation.cast_list.CastListEvents
 import com.example.castshow.core.data.local.model.Character
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -49,7 +50,7 @@ class CastListViewModelTest {
 
         // When
         coEvery { getCharactersUseCase() } returns newCharacters
-        viewModel.getMoreCharacters()
+        viewModel.onTriggerEvent(CastListEvents.GetMoreCharacters)
         // Then
         advanceUntilIdle()
         assertEquals(
@@ -58,7 +59,7 @@ class CastListViewModelTest {
                 Character(id = 2, name = "Bob"),
                 Character(id = 3, name = "Charlie"),
                 Character(id = 4, name = "David")
-            ) + newCharacters, viewModel.charactersToShow
+            ) + newCharacters, viewModel.state.filteredCharacters
         )
     }
 
@@ -70,13 +71,14 @@ class CastListViewModelTest {
             Character(id = 2, "Jane")
         )
         coEvery { getCharactersUseCase() } returns characters
-        viewModel.getMoreCharacters()
+        viewModel.onTriggerEvent(CastListEvents.GetMoreCharacters)
+
 
         // When
-        viewModel.onSearchQueryChange("John")
+        viewModel.onTriggerEvent(CastListEvents.UpdateCharacterName("John"))
 
         // Then
         advanceUntilIdle()
-        assertEquals(listOf(characters[0]), viewModel.charactersToShow)
+        assertEquals(listOf(characters[0]), viewModel.state.filteredCharacters)
     }
 }
